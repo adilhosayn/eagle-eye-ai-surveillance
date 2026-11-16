@@ -1,0 +1,48 @@
+# Eagle Eye AI GPU Profile — For NVIDIA CUDA Enabled Systems
+model:
+  path: models/yolo11n.pt
+  confidence: 0.40
+  device: cuda
+  classes:
+    - person
+    - car
+    - truck
+    - bus
+    - backpack
+    - handbag
+    - suitcase
+
+weapon_detection:
+  enabled: true
+  model_path: models/rik_best_best.pt
+  device: cuda
+  confidence_threshold: 0.60
+  inference_interval: 2
+  confirmation_frames: 2
+  alert_cooldown_seconds: 10.0
+  input_size: 640
+
+security_audio:
+  enabled: true
+  sound_type: auto
+  cooldown_seconds: 5.0
+  weapon_priority: true
+  duration_ms: 500
+  max_repeat_hz: 2.0
+
+input:
+  source: 0
+
+runtime:
+  frame_skip: 0
+  adaptive_frame_skip: false
+  target_processing_fps: 30.0
+  resize_width: 0
+  resize_height: 0
+
+output:
+  show_window: true
+  save_annotated_video: true
+  annotated_video_path: data/outputs/eagle_eye_annotated.mp4
+  alerts_dir: data/outputs/alerts
+  log_path: data/outputs/events.jsonl

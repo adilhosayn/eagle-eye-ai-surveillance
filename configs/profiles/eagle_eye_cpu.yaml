@@ -1,0 +1,60 @@
+# Eagle Eye AI CPU Profile — Optimized for Intel Core i7 12th Gen / 16GB RAM / Windows
+model:
+  path: models/yolo11n.pt
+  confidence: 0.40
+  device: cpu
+  classes:
+    - person
+    - car
+    - truck
+    - bus
+    - backpack
+    - handbag
+    - suitcase
+
+weapon_detection:
+  enabled: true
+  model_path: models/rik_best_best.pt
+  device: cpu
+  confidence_threshold: 0.60
+  inference_interval: 3
+  confirmation_frames: 2
+  alert_cooldown_seconds: 10.0
+  input_size: 640
+
+security_audio:
+  enabled: true
+  sound_type: auto
+  cooldown_seconds: 5.0
+  weapon_priority: true
+  duration_ms: 500
+  max_repeat_hz: 2.0
+  event_mapping:
+    weapon_detected: siren
+    intrusion: beep
+    after_hours_occupancy: beep
+    abandoned_object: beep
+    wrong_way: beep
+    loitering: beep
+    line_crossing: beep
+
+input:
+  source: 0
+
+runtime:
+  frame_skip: 0
+  adaptive_frame_skip: false
+  target_processing_fps: 15.0
+  resize_width: 640
+  resize_height: 480
+  timing_log_interval_frames: 120
+
+output:
+  show_window: true
+  save_annotated_video: true
+  annotated_video_path: data/outputs/eagle_eye_annotated.mp4
+  alerts_dir: data/outputs/alerts
+  log_path: data/outputs/events.jsonl
+  buffer_seconds: 3
+  post_event_seconds: 3
+  duplicate_suppression_seconds: 10
